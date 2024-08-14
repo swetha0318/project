@@ -1,0 +1,161 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login and Registration with JS</title>
+  <style>
+    .error {
+      color: red;
+    }
+    body {
+      background-image: url("http://www.hdwallpaperspulse.com/wp-content/uploads/2013/07/29/hd-wallpaper-free-download-281.jpg");
+      background-size: cover;
+    }
+    label {
+      color: yellow;
+    }
+    h1 {
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="offcanvas-body">
+    <h1>Login Form</h1>
+    <div style="display: grid; justify-content: space-evenly; border-style: groove; padding: 10px 100px 140px;">
+      <form onsubmit="return loginForm()">
+        <label for="email">Enter email id</label>
+        <input type="email" id="email" name="email"><br>
+        <span id="emailError" class="error"></span><br>
+
+        <label for="password">Enter password</label>
+        <input type="password" id="password"><br>
+        <span id="passError" class="error"></span><br>
+
+        <!-- Removed the 'cache' input field as it is not standard -->
+        <input type="submit" value="Login"><br>
+      </form>
+    </div>
+  </div>
+
+  <div class="offcanvas-body">
+    <h1>Register Form</h1>
+    <div style="display: grid; justify-content: space-evenly; border-style: groove;">
+      <form id="myForm" onsubmit="return validateForm()">
+        <label for="username">Username (8-10 characters):</label><br>
+        <input type="text" id="username" name="username"><br>
+        <span id="usernameError" class="error"></span><br>
+
+        <label for="age">Age (greater than 10):</label><br>
+        <input type="number" id="age" name="age"><br>
+        <span id="ageError" class="error"></span><br>
+
+        <label for="pincode">Pincode (6 digits):</label><br>
+        <input type="text" id="pincode" name="pincode"><br>
+        <span id="pincodeError" class="error"></span><br>
+
+        <label for="pan">PAN Number (10 characters, alphanumeric):</label><br>
+        <input type="text" id="pan" name="pan"><br>
+        <span id="panError" class="error"></span><br>
+
+        <label for="password">Password (10 characters, 1 uppercase, 1 special character, 1 digit):</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+
+        <label for="phone">Phone Number (starting with 8):</label><br>
+        <input type="text" id="phone" name="phone"><br>
+        <span id="phoneError" class="error"></span><br>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+  function validateForm() {
+    var username = document.getElementById('username').value;
+    var age = document.getElementById('age').value;
+    var pincode = document.getElementById('pincode').value;
+    var pan = document.getElementById('pan').value;
+    var password = document.getElementById('password').value;
+    var phone = document.getElementById('phone').value;
+
+    var isValid = true;
+
+    // Username validation
+    if (username.length < 8 || username.length > 10) {
+      document.getElementById('usernameError').textContent = "Username must be between 8 and 10 characters";
+      isValid = false;
+    } else {
+      document.getElementById('usernameError').textContent = "";
+    }
+
+    // Age validation
+    if (age < 10 || age > 100 || isNaN(age)) {
+      document.getElementById('ageError').textContent = "Age must be greater than 10 and less than 100.";
+      isValid = false;
+    } else {
+      document.getElementById('ageError').textContent = "";
+    }
+
+    // Pincode validation
+    if (!/^\d{6}$/.test(pincode)) {
+      document.getElementById('pincodeError').textContent = "Pincode must be 6 digits";
+      isValid = false;
+    } else {
+      document.getElementById('pincodeError').textContent = "";
+    }
+
+    // PAN number validation
+    if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan)) {
+      document.getElementById('panError').textContent = "PAN number must be 10 characters alphanumeric";
+      isValid = false;
+    } else {
+      document.getElementById('panError').textContent = "";
+    }
+
+    // Password validation
+    if (!/(?=.[A-Z])(?=.[!@#$%^&])(?=.*[0-9]).{10}/.test(password)) {
+      document.getElementById('passwordError').textContent = "Password must have 1 uppercase, 1 special character, 1 digit, and be 10 characters long";
+      isValid = false;
+    } else {
+      document.getElementById('passwordError').textContent = "";
+    }
+
+    // Phone number validation
+    if (!/^8\d{9}$/.test(phone)) {
+      document.getElementById('phoneError').textContent = "Phone number must start with 8 and be 10 digits long";
+      isValid = false;
+    } else {
+      document.getElementById('phoneError').textContent = "";
+    }
+
+    return isValid;
+  }
+
+  function loginForm() {
+    var email = document.getElementById("email").value;
+    var pass = document.getElementById("password").value;
+    var login = true;
+
+    // Email validation
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/.test(email.toUpperCase())) {
+      document.getElementById('emailError').textContent = "Please enter a valid email address";
+      login = false;
+    } else {
+      document.getElementById('emailError').textContent = "";
+    }
+
+    // Password validation
+    if (!/(?=.[A-Z])(?=.[!@#$%^&])(?=.*[0-9]).{10}/.test(pass)) {
+      document.getElementById('passError').textContent = "Password must have 1 uppercase, 1 special character, 1 digit, and be 10 characters long";
+      login = false;
+    } else {
+      document.getElementById('passError').textContent = "";
+    }
+
+    return login;
+  }
+</script>
+</html>
